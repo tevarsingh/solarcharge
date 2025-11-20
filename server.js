@@ -20,14 +20,26 @@ var MongoStore = require('connect-mongo')(session);
 // });
 //const mongoose = require("mongoose");
 
-mongoose
-  .connect('mongodb+srv://say12345srt:qIdTBCyRqM2f08lA@ev-charging.wtzim2j.mongodb.net/?retryWrites=true&w=majority&appName=EV-Charging', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-  })
-  .then(() => console.log("Database connected!"))
-  .catch(err => console.log(err));
+// mongoose
+//   .connect('mongodb+srv://say12345srt:qIdTBCyRqM2f08lA@ev-charging.wtzim2j.mongodb.net/?retryWrites=true&w=majority&appName=EV-Charging', {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//     useCreateIndex: true,
+//   })
+//   .then(() => console.log("Database connected!"))
+//   .catch(err => console.log(err));
+
+
+
+mongoose.connect(process.env.MONGODB_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+}).then(() => {
+  console.log("Local MongoDB connected!");
+}).catch((err) => {
+  console.log("DB Connection Error: ", err);
+});
+
  
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -39,9 +51,11 @@ app.use(session({
   resave: true,
   saveUninitialized: false,
   store: new MongoStore({
-    mongooseConnection: db
+    mongooseConnection: mongoose.connection
   })
 }));
+
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');	
@@ -73,3 +87,7 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, function () {
   console.log('Server is started on http://127.0.0.1:'+PORT);
 });
+
+
+
+

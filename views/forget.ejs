@@ -1,82 +1,178 @@
+
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Forget Password</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
-	</script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="./css/main.css">
+    <title>Forget Password</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="./css/main.css">
+
     <style>
-		body {
+        body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-image: url(https://promwad.com/sites/default/files/charging-background.png);
+            background-image: url(https://wallpaperaccess.com/full/1743472.jpg);
             background-size: 100% 100%;
             display: flex;
-            
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
         }
-	</style>
-	<script type="text/javascript">
-		$(document).ready(function(){
 
-			$( "#form2" ).submit(function(event) {
+        /* ---- SOLAR POWER EFFECTS ---- */
 
-				event.preventDefault();
+        /* Solar rotating rays */
+        .solar-rays {
+            position: absolute;
+            width: 480px;
+            height: 480px;
+            background: radial-gradient(circle, rgba(255,255,120,0.35), rgba(255,200,0,0) 70%);
+            border-radius: 50%;
+            filter: blur(35px);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: rotateRays 18s linear infinite;
+            z-index: -2;
+        }
 
-				$.ajax({
-					type: 'POST',
-					url: '/forgetpass',
-					data: $('#form2').serialize(),
-					dataType: "json",
-					success: function(response){
-						//alert("a");
-						//console.log(response.Success);
-						$('#form2')[0].reset();
-						//alert("abc");
-						document.getElementById("check").innerHTML=response.Success;
+        @keyframes rotateRays {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
 
-						setTimeout(function(){
-							document.getElementById("check").innerHTML="";
-						},3000);
-						if (response.Success=="Password changed!") {
-							document.getElementById("aa").click();
-						};
-					},
-					error: function() {
-					}
-				})
-			});
+        /* Solar particles rising */
+        @keyframes solarParticles {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 0;
+            }
+            30% { opacity: 1; }
+            100% {
+                transform: translateY(-180px) scale(0.2);
+                opacity: 0;
+            }
+        }
 
-		});
-	</script>
+        .solar-particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: rgba(255,255,150,0.9);
+            border-radius: 50%;
+            filter: blur(2px);
+            animation: solarParticles 4s linear infinite;
+            z-index: -1;
+        }
+
+        /* Random particle positions */
+        .p1 { left: 49%; bottom: 22%; animation-delay: 0s; }
+        .p2 { left: 46%; bottom: 18%; animation-delay: 1s; }
+        .p3 { left: 52%; bottom: 17%; animation-delay: 0.5s; }
+        .p4 { left: 55%; bottom: 21%; animation-delay: 1.8s; }
+        .p5 { left: 50%; bottom: 24%; animation-delay: 2.6s; }
+
+        /* Glow behind form */
+        .form-glow {
+            position: absolute;
+            width: 380px;
+            height: 380px;
+            background: radial-gradient(circle, rgba(255,240,150,0.25), rgba(255,230,0,0) 75%);
+            border-radius: 50%;
+            filter: blur(40px);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -3;
+        }
+
+    </style>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#form2").submit(function (event) {
+                event.preventDefault();
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/forgetpass',
+                    data: $('#form2').serialize(),
+                    dataType: "json",
+
+                    success: function (response) {
+                        $('#form2')[0].reset();
+                        document.getElementById("check").innerHTML = response.Success;
+
+                        setTimeout(function () {
+                            document.getElementById("check").innerHTML = "";
+                        }, 3000);
+
+                        if (response.Success == "Password changed!") {
+                            document.getElementById("aa").click();
+                        }
+                    }
+                });
+            });
+
+        });
+    </script>
+
 </head>
+
 <body>
 
-		<div class="col-md-4 col-md-offset-4">
-			<div>
-				<p>EV Charging Web</p>
-				<p>Change Password</p>
-			</div>
-			<div class="form-group">
-				<form id="form2" method="post">
-					<input type="text" name="email" placeholder="E-mail" required="" class="form-control"><br/>
-					<input type="password" name="password" placeholder="Password" required="" class="form-control"><br/>
-					<input type="password" name="passwordConf" placeholder="Confirm Password" required="" class="form-control"><br/>
-					<input type="submit" value="Change" class="btn btn-success">
-				</form>
-			</div>
-			<div  class="mssg bg-danger">
-				<span id="check"></span>
-				</div>
-				<div id="LangTable"><a href="/profile" id="aa"></a>
-				</div>
-				<div><span>Login?</span><a href="/login">Click here</a></div>
-			</div>
-			<div id="LangTable"><a href="/login" id="aa"></a>
-			</div>
-		</div>
+    <!-- Solar Effects -->
+    <div class="solar-rays"></div>
+    <div class="form-glow"></div>
+
+    <!-- Solar particles -->
+    <div class="solar-particle p1"></div>
+    <div class="solar-particle p2"></div>
+    <div class="solar-particle p3"></div>
+    <div class="solar-particle p4"></div>
+    <div class="solar-particle p5"></div>
+
+
+    <!-- CARD -->
+    <div class="col-md-4 col-md-offset-4" style="background: rgba(255,255,255,0.15); padding: 25px; border-radius: 12px; backdrop-filter: blur(12px);">
+        
+        <div>
+            <p style="font-size: 24px; font-weight: bold; color: white; text-align:center;"></p>
+            <p style="font-size: 16px; color: #eee; text-align:center;">Change Password</p>
+        </div>
+
+        <div class="form-group">
+            <form id="form2" method="post">
+                <input type="text" name="email" placeholder="E-mail" required class="form-control"><br/>
+                <input type="password" name="password" placeholder="Password" required class="form-control"><br/>
+                <input type="password" name="passwordConf" placeholder="Confirm Password" required class="form-control"><br/>
+                <input type="submit" value="Change" class="btn btn-success" style="width: 100%;">
+            </form>
+        </div>
+
+        <div class="mssg bg-danger" style="text-align:center; padding: 5px;">
+            <span id="check"></span>
+        </div>
+
+        <div><span style="color:white;">Login?</span> <a href="/login">Click here</a></div>
+
+        <a href="/login" id="aa"></a>
+    </div>
 
 </body>
 </html>

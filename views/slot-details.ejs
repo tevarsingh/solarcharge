@@ -78,6 +78,19 @@
     z-index: 99999;
     display: none;
   }
+
+    .edit-btn {
+    background-color: #ff0f0f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .edit-btn:hover {
+    background-color: #cdd2ce;
+  }
 </style>
 </head>
 <body>
@@ -102,6 +115,22 @@
 </div>
 
 <div class="toast" id="toast">Payment Successful! Slot Booked!</div>
+
+
+   </div>
+
+    <button class="edit-btn" onclick="editVehicle()">BACK TO HOME</button>
+  </div>
+
+
+  <script>
+function editVehicle() {
+  window.location.href = "/profile";
+}
+</script>
+
+
+
 
 <script>
 function makePayment() {

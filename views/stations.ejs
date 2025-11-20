@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Charging Stations</title>
-  <!-- Add Font Awesome -->
+ 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style>
     body{
@@ -46,6 +46,9 @@
   h1 {
     text-align: center;
   }
+
+
+  
   </style>
 </head>
 <body>
@@ -80,7 +83,136 @@
     <% }) %>
   </div>
 </body>
+</html>  -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Charging Stations</title>
+ 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    body{
+      background-color: rgb(60, 51, 70);
+    }
+    .station-container {
+      display: flex;
+      grid-template-columns: repeat(2, 1fr);
+      align-items: center;
+      justify-content: center;
+      gap: 50px;
+      flex-wrap: wrap;
+    }
+    
+    .station-box {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      border-width: medium;
+      border-color: black;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: rgba(255,255,255,0.7);
+      background-blend-mode: lighten;
+      width: 500px;
+      height: 200px;
+      margin-bottom: 50px; 
+    }
+    .station-icon {
+      margin-right: 5px;
+    }
+    p {
+      font-size: 18px;
+    }
+    h1 {
+      text-align: center;
+      color: #fff;
+    }
+    a h2, a h3 {
+      color: black;
+      text-decoration: none;
+    }
+    a h2:hover, a h3:hover {
+      color: #007bff;
+    }
+  </style>
+</head>
+<body>
+  <h1>Charging Stations</h1>
+
+  <div class="station-container">
+    <% chargingStations.forEach((station, index) => { %>
+      <div class="station-box" style="background-image: url('<%= station.image %>');">
+          <a href="/station">
+            <h2><i class="fas <%= station.icon %> station-icon"></i><%= station.name %></h2>
+          </a>
+          <p><strong>Distance:</strong> <%= station.distance %> miles</p>
+          <p><strong>Area:</strong> <%= station.areaName %></p>
+          <a href="/map">
+            <h3>Open in Map</h3>
+          </a>
+      </div>
+    <% }) %>
+  </div>
+</body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

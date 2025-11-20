@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
 	<title>Registration</title>
@@ -85,4 +85,228 @@
 		</div>
 	</div>
 </body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EV Registration</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Poppins", sans-serif;
+            background: url("https://promwad.com/sites/default/files/charging-background.png") center/cover no-repeat fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            width: 420px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #fff;
+            font-weight: 600;
+            font-size: 26px;
+        }
+
+        .subtitle {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #eaeaea;
+            font-size: 15px;
+        }
+
+        .form-control {
+            height: 42px;
+            border-radius: 8px;
+            border: none;
+            box-shadow: 0 0 8px rgba(255,255,255,0.1);
+        }
+
+        .form-control:focus {
+            box-shadow: 0 0 10px #00ffcc;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: #00c78b;
+            color: white;
+            font-size: 17px;
+            border-radius: 8px;
+            padding: 10px;
+            border: none;
+            transition: 0.3s;
+        }
+
+        .btn-submit:hover {
+            background: #009f6c;
+        }
+
+        .footer-text {
+            text-align: center;
+            margin-top: 15px;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .footer-text a {
+            color: #00ffc4;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        #check {
+            font-weight: bold;
+            color: rgb(255, 235, 59);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            $("#form1").submit(function (event) {
+                event.preventDefault();
+
+                $.ajax({
+                    type: "POST",
+                    url: "/",
+                    data: $('#form1').serialize(),
+                    dataType: "json",
+
+                    success: function (response) {
+                        $('#form1')[0].reset();
+                        $("#check").text(response.Success);
+
+                        setTimeout(() => $("#check").text(""), 3000);
+
+                        if (response.Success === "You are regestered,You can login now.") {
+                            document.getElementById("aa").click();
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+
+    <div class="card">
+
+        <div class="title">SOLAR CHARGE</div>
+        <div class="subtitle">Create Your Account</div>
+
+        <form id="form1" method="post">
+
+            <input type="email" name="email" placeholder="E-mail" required class="form-control"><br>
+            <input type="text" name="username" placeholder="Username" required class="form-control"><br>
+            <input type="text" name="veichleNumber" placeholder="Vehicle Number" required class="form-control"><br>
+            <input type="text" name="batteryCapacity" placeholder="Battery Capacity (in mAh)" required class="form-control"><br>
+            <input type="text" name="ageOfVeichle" placeholder="Age of Vehicle (in months)" required class="form-control"><br>
+            <input type="text" name="veichleModelName" placeholder="Vehicle Model Name" required class="form-control"><br>
+            <input type="text" name="driversId" placeholder="Driver ID" required class="form-control"><br>
+            <input type="password" name="password" placeholder="Password" required class="form-control"><br>
+            <input type="password" name="passwordConf" placeholder="Confirm Password" required class="form-control"><br>
+
+            <button class="btn-submit">Register</button>
+
+        </form>
+
+        <p class="footer-text">
+            Already registered? <a href="/login">Login</a>
+        </p>
+
+        <div style="text-align:center;"><span id="check"></span></div>
+
+        <a href="/login" id="aa"></a>
+
+    </div>
+
+</body>
 </html>
+
+<!-- Drop this entire block as a standalone left-side anim/ation -->
+<!-- 
+<style>
+  
+  /* 🌞 SUN */
+  .sun {
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, #ffeb3b, #ff9800, #ff5722);
+    border-radius: 50%;
+    position: left;
+    top: 100px;
+    left: 1000px;
+    box-shadow: 0 0 40px #ff9800, 0 0 100px #ff5722;
+    animation: sunrise 6s infinite ease-in-out alternate;
+  }
+
+
+  /* 🌞 Solar Rays */
+  .sun-rays {
+    position: left;
+    width: 250px;
+    height: 250px;
+    top: -5%;
+    left: 90%;
+    border-radius: 50%;
+    background: conic-gradient(
+      rgba(255, 193, 7, 0.5),
+      rgba(255, 87, 34, 0.3),
+      rgba(255, 193, 7, 0.5)
+    );
+    animation: rotateRays 12s linear infinite;
+    filter: blur(40px);
+    opacity: 0.8;
+	position: left;
+  }
+
+</style>
+
+
+  <div class="sun"></div>
+  <div class="sun-rays"></div>
+ -->

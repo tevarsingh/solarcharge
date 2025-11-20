@@ -174,4 +174,44 @@ router.get('/my-bookings', function (req, res, next) {
 	res.render("my-bookings.ejs");
 });
 
+
+
+
+
+
+
+
+
+
+
+router.get('/myvehicle', function (req, res, next) {
+    if (!req.session.userId) {
+        return res.redirect('/login');
+    }
+
+    User.findOne({ unique_id: req.session.userId }, function (err, data) {
+        if (!data) {
+            return res.redirect('/login');
+        }
+
+        return res.render('myvehicle.ejs', { user: data });
+    });
+});
+
 module.exports = router;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
